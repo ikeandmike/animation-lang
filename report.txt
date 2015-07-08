@@ -1,0 +1,21 @@
+Michael Giancola - Individual Project Report
+
+1.) A program in my language is called a "canvas", because "animation" is defined as an individual object in my language. So to run a program, you must execute (run-canvas <CANVAS_NAME>). Below is a list of all of the canvas's provided by my project. I included the three required examples, an additional example of my own, and a few simple canvas's that I designed to test specific commands. I also included versions of the three required examples that use macros (example names are prefixed by "M-").
+
+(run-canvas ANI-1) & (run-canvas M-ANI-1)
+(run-canvas ANI-2) & (run-canvas M-ANI-2)
+(run-canvas ANI-3) & (run-canvas M-ANI-3)
+(run-canvas MY-ANIMATION)
+(run-canvas MOVE-TEST)
+(run-canvas JUMP-TEST)
+(run-canvas RANDOM-JUMP-TEST)
+(run-canvas COLLISION-TEST-CIRC)
+(run-canvas COLLISION-TEST-CR)
+
+2.) My program is fully functional, including all of the specifications required in the project description. It supports all of the necessary commands, including repeating blocks of commands. I also implemented a clean macro interface for the language, which I use in writing the three required examples (both macro and non-macro code for those three are available, as described above).
+
+3.) I changed my design quite a bit since the design phase. I had two separate commands used for collision checking (one for moving, one for jumping) and another one to actually do something when they collide (animation-interaction). I decided that this wasn't necessary, and created two new structures to handle all of this. The first, repeat-until, takes an event (ie. a collision) and a list of commands. The interpreter runs the list of commands until the event has happened (ie. it returns true). Collision is the second new structure; when the interpreter processes it, it returns true if the objects have collided, false if not. 
+
+In addition to changing those functions, I also removed the definiton for animation, made animation a mixed type, and created two new definitions, circle and rect. Because circle and rect required different things (ie. circle needs a radius, rect needs x and y length), I felt it made more sense to have two separate data structures for them. Also, within the definitions for circle and rect, I made a color parameter which is of type String. I used a String (as opposed to a symbol) because the type required for (circle ...) and (rectangle ...) in the image teachpack is a String, so it made using those functions easier if the parameter for color was a String.
+
+4.) The biggest thing that could be better in my implementation is my collision checking algorithm. I tried a few different algorithms for comparing the distance between two objects. The one I used for two circles works really well. It basically checks if the distance between the two circles is less than the sum of their radii. For rectangles, it was a bit harder. I ended up using the formula 1/3 (x-length + y-length) for the "radius" of the rectangle. In some instances, this formula works well for approximating an object's distance from a rectangle. In others, the object will be a little farther away from the rectangle when it decides that they collided. I used a slightly different, more complex formula for determining the distance between two rectangles (basically it uses the rectangle's diagonal lengths in addition to their side lengths). However since this wasn't the focus of the project I didn't worry too much about the accuracy of my collision checking algorithm. As for my final design, I was happy with how it looked in the end. I also think my macro interface was very clean and straightforward.
